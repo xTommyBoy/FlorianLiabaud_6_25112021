@@ -1,9 +1,10 @@
-const http = require('http');
+const http = require('http'); //pour discuter avec les requetes HTTP
 const app = require('./app');
 
+//parametrage de l'utilisation des ports
 const normalizePort = val => {
   const port = parseInt(val, 10);
-
+//si la lecture du port est inférieure a 10 ou retourne une mauvaise valeur alors retourner invalide
   if (isNaN(port)) {
     return val;
   }
@@ -12,14 +13,17 @@ const normalizePort = val => {
   }
   return false;
 };
+//parametrage du port pour se lancer sur 3000 automatiquement
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+//lecture des erreurs
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
   }
   const address = server.address();
+  //indique les ports
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
   switch (error.code) {
     case 'EACCES':
