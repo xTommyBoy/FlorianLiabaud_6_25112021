@@ -2,6 +2,7 @@ const usersign = require('../models/User');
 const bcrypt = require('bcrypt'); //permet de hasher des mot de passes
 const jwt = require('jsonwebtoken');
 
+
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 11)
     //hashage du mot de passe 11 fois
@@ -14,7 +15,7 @@ exports.signup = (req, res, next) => {
       //enregistrement de l'utilisateur dans la BDD
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur correctement créé !' }))
-        .catch((error) => res.status(400).json({ error }));
+        .catch((error) => res.status(409).json({ error: "Utilisateur déja éxistant !"}));
     })
     .catch((error) => res.status(500).json({ error }));
 };
